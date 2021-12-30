@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/div_politica_zona_nte_1.js"></script>
+        <script src="data/MUNICIPIOS_REG_LAGUNA_2.js"></script>
+        <script src="data/DISTRITORIEGO017_3.js"></script>
+        <script src="data/RIO_NAZAS_4.js"></script>
+        <script src="data/PRESASAGUASALUDABLE_5.js"></script>
+        <script src="data/parques_estatales_6.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[13.894880572352553,-122.08166609455938],[35.466330069623375,-81.75677148521035]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            map.setMaxBounds(map.getBounds());
+        }
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        function pop_div_politica_zona_nte_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVE_ENT'] !== null ? autolinker.link(feature.properties['CVE_ENT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>NOM_ENT</strong><br />' + (feature.properties['NOM_ENT'] !== null ? autolinker.link(feature.properties['NOM_ENT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>CVE_CAP</strong><br />' + (feature.properties['CVE_CAP'] !== null ? autolinker.link(feature.properties['CVE_CAP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>NOM_CAP</strong><br />' + (feature.properties['NOM_CAP'] !== null ? autolinker.link(feature.properties['NOM_CAP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COV_'] !== null ? autolinker.link(feature.properties['COV_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COV_ID'] !== null ? autolinker.link(feature.properties['COV_ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AREA</th>\
+                        <td>' + (feature.properties['AREA'] !== null ? autolinker.link(feature.properties['AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PERIMETER'] !== null ? autolinker.link(feature.properties['PERIMETER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_div_politica_zona_nte_1_0() {
+            return {
+                pane: 'pane_div_politica_zona_nte_1',
+                opacity: 1,
+                color: 'rgba(53,121,177,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_div_politica_zona_nte_1');
+        map.getPane('pane_div_politica_zona_nte_1').style.zIndex = 401;
+        map.getPane('pane_div_politica_zona_nte_1').style['mix-blend-mode'] = 'normal';
+        var layer_div_politica_zona_nte_1 = new L.geoJson(json_div_politica_zona_nte_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_div_politica_zona_nte_1',
+            layerName: 'layer_div_politica_zona_nte_1',
+            pane: 'pane_div_politica_zona_nte_1',
+            onEachFeature: pop_div_politica_zona_nte_1,
+            style: style_div_politica_zona_nte_1_0,
+        });
+        bounds_group.addLayer(layer_div_politica_zona_nte_1);
+        map.addLayer(layer_div_politica_zona_nte_1);
+        function pop_MUNICIPIOS_REG_LAGUNA_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>CVE_ENT</strong><br />' + (feature.properties['CVE_ENT'] !== null ? autolinker.link(feature.properties['CVE_ENT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CVE_MUN</th>\
+                        <td>' + (feature.properties['CVE_MUN'] !== null ? autolinker.link(feature.properties['CVE_MUN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CVEGEO</th>\
+                        <td>' + (feature.properties['CVEGEO'] !== null ? autolinker.link(feature.properties['CVEGEO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOM_ENT</th>\
+                        <td>' + (feature.properties['NOM_ENT'] !== null ? autolinker.link(feature.properties['NOM_ENT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AREA</th>\
+                        <td>' + (feature.properties['AREA'] !== null ? autolinker.link(feature.properties['AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PERIMETER</th>\
+                        <td>' + (feature.properties['PERIMETER'] !== null ? autolinker.link(feature.properties['PERIMETER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOM_MUN</th>\
+                        <td>' + (feature.properties['NOM_MUN'] !== null ? autolinker.link(feature.properties['NOM_MUN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COV_</th>\
+                        <td>' + (feature.properties['COV_'] !== null ? autolinker.link(feature.properties['COV_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COV_ID</th>\
+                        <td>' + (feature.properties['COV_ID'] !== null ? autolinker.link(feature.properties['COV_ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MUNICIPIOS_REG_LAGUNA_2_0() {
+            return {
+                pane: 'pane_MUNICIPIOS_REG_LAGUNA_2',
+                opacity: 1,
+                color: 'rgba(53,49,132,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: .5,
+                fillColor: 'rgba(202,113,232,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MUNICIPIOS_REG_LAGUNA_2');
+        map.getPane('pane_MUNICIPIOS_REG_LAGUNA_2').style.zIndex = 402;
+        map.getPane('pane_MUNICIPIOS_REG_LAGUNA_2').style['mix-blend-mode'] = 'normal';
+        var layer_MUNICIPIOS_REG_LAGUNA_2 = new L.geoJson(json_MUNICIPIOS_REG_LAGUNA_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MUNICIPIOS_REG_LAGUNA_2',
+            layerName: 'layer_MUNICIPIOS_REG_LAGUNA_2',
+            pane: 'pane_MUNICIPIOS_REG_LAGUNA_2',
+            onEachFeature: pop_MUNICIPIOS_REG_LAGUNA_2,
+            style: style_MUNICIPIOS_REG_LAGUNA_2_0,
+        });
+        bounds_group.addLayer(layer_MUNICIPIOS_REG_LAGUNA_2);
+        map.addLayer(layer_MUNICIPIOS_REG_LAGUNA_2);
+        function pop_DISTRITORIEGO017_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_dr'] !== null ? autolinker.link(feature.properties['id_dr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">nom_dr</th>\
+                        <td>' + (feature.properties['nom_dr'] !== null ? autolinker.link(feature.properties['nom_dr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>nom_edo</strong><br />' + (feature.properties['nom_edo'] !== null ? autolinker.link(feature.properties['nom_edo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">nom_rh</th>\
+                        <td>' + (feature.properties['nom_rh'] !== null ? autolinker.link(feature.properties['nom_rh'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">nom_rha</th>\
+                        <td>' + (feature.properties['nom_rha'] !== null ? autolinker.link(feature.properties['nom_rha'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">num_usu</th>\
+                        <td>' + (feature.properties['num_usu'] !== null ? autolinker.link(feature.properties['num_usu'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sup_tot'] !== null ? autolinker.link(feature.properties['sup_tot'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sup_rasup'] !== null ? autolinker.link(feature.properties['sup_rasup'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sup_rasub'] !== null ? autolinker.link(feature.properties['sup_rasub'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sup_rtot'] !== null ? autolinker.link(feature.properties['sup_rtot'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['vol_asup'] !== null ? autolinker.link(feature.properties['vol_asup'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['vol_asub'] !== null ? autolinker.link(feature.properties['vol_asub'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['vol_atot'] !== null ? autolinker.link(feature.properties['vol_atot'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['año_agr'] !== null ? autolinker.link(feature.properties['año_agr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_area'] !== null ? autolinker.link(feature.properties['Shape_area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_len'] !== null ? autolinker.link(feature.properties['Shape_len'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_DISTRITORIEGO017_3_0() {
+            return {
+                pane: 'pane_DISTRITORIEGO017_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: .5,
+                fillColor: 'rgba(139,108,13,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_DISTRITORIEGO017_3');
+        map.getPane('pane_DISTRITORIEGO017_3').style.zIndex = 403;
+        map.getPane('pane_DISTRITORIEGO017_3').style['mix-blend-mode'] = 'normal';
+        var layer_DISTRITORIEGO017_3 = new L.geoJson(json_DISTRITORIEGO017_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DISTRITORIEGO017_3',
+            layerName: 'layer_DISTRITORIEGO017_3',
+            pane: 'pane_DISTRITORIEGO017_3',
+            onEachFeature: pop_DISTRITORIEGO017_3,
+            style: style_DISTRITORIEGO017_3_0,
+        });
+        bounds_group.addLayer(layer_DISTRITORIEGO017_3);
+        map.addLayer(layer_DISTRITORIEGO017_3);
+        function pop_RIO_NAZAS_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nombre</th>\
+                        <td>' + (feature.properties['Nombre'] !== null ? autolinker.link(feature.properties['Nombre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Web</th>\
+                        <td>' + (feature.properties['Web'] !== null ? autolinker.link(feature.properties['Web'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_RIO_NAZAS_4_0() {
+            return {
+                pane: 'pane_RIO_NAZAS_4',
+                opacity: 1,
+                color: 'rgba(219,30,42,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_RIO_NAZAS_4');
+        map.getPane('pane_RIO_NAZAS_4').style.zIndex = 404;
+        map.getPane('pane_RIO_NAZAS_4').style['mix-blend-mode'] = 'normal';
+        var layer_RIO_NAZAS_4 = new L.geoJson(json_RIO_NAZAS_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_RIO_NAZAS_4',
+            layerName: 'layer_RIO_NAZAS_4',
+            pane: 'pane_RIO_NAZAS_4',
+            onEachFeature: pop_RIO_NAZAS_4,
+            style: style_RIO_NAZAS_4_0,
+        });
+        bounds_group.addLayer(layer_RIO_NAZAS_4);
+        map.addLayer(layer_RIO_NAZAS_4);
+        function pop_PRESASAGUASALUDABLE_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">NomOficial</th>\
+                        <td>' + (feature.properties['NomOficial'] !== null ? autolinker.link(feature.properties['NomOficial'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NomComun</th>\
+                        <td>' + (feature.properties['NomComun'] !== null ? autolinker.link(feature.properties['NomComun'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ID_Estado</th>\
+                        <td>' + (feature.properties['ID_Estado'] !== null ? autolinker.link(feature.properties['ID_Estado'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NomEstado</th>\
+                        <td>' + (feature.properties['NomEstado'] !== null ? autolinker.link(feature.properties['NomEstado'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cuenca</th>\
+                        <td>' + (feature.properties['Cuenca'] !== null ? autolinker.link(feature.properties['Cuenca'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Corriente</th>\
+                        <td>' + (feature.properties['Corriente'] !== null ? autolinker.link(feature.properties['Corriente'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">A_Cortina</th>\
+                        <td>' + (feature.properties['A_Cortina'] !== null ? autolinker.link(feature.properties['A_Cortina'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cap_Max</th>\
+                        <td>' + (feature.properties['Cap_Max'] !== null ? autolinker.link(feature.properties['Cap_Max'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cap_Nom</th>\
+                        <td>' + (feature.properties['Cap_Nom'] !== null ? autolinker.link(feature.properties['Cap_Nom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">VolAlmacen</th>\
+                        <td>' + (feature.properties['VolAlmacen'] !== null ? autolinker.link(feature.properties['VolAlmacen'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Web</th>\
+                        <td>' + (feature.properties['Web'] !== null ? autolinker.link(feature.properties['Web'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PRESASAGUASALUDABLE_5_0() {
+            return {
+                pane: 'pane_PRESASAGUASALUDABLE_5',
+                radius: 10.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,180,60,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PRESASAGUASALUDABLE_5');
+        map.getPane('pane_PRESASAGUASALUDABLE_5').style.zIndex = 405;
+        map.getPane('pane_PRESASAGUASALUDABLE_5').style['mix-blend-mode'] = 'normal';
+        var layer_PRESASAGUASALUDABLE_5 = new L.geoJson(json_PRESASAGUASALUDABLE_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PRESASAGUASALUDABLE_5',
+            layerName: 'layer_PRESASAGUASALUDABLE_5',
+            pane: 'pane_PRESASAGUASALUDABLE_5',
+            onEachFeature: pop_PRESASAGUASALUDABLE_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_PRESASAGUASALUDABLE_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_PRESASAGUASALUDABLE_5);
+        map.addLayer(layer_PRESASAGUASALUDABLE_5);
+        function pop_parques_estatales_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE</th>\
+                        <td>' + (feature.properties['NOMBRE'] !== null ? autolinker.link(feature.properties['NOMBRE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TIPO</th>\
+                        <td>' + (feature.properties['TIPO'] !== null ? autolinker.link(feature.properties['TIPO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ULT_DEC</th>\
+                        <td>' + (feature.properties['ULT_DEC'] !== null ? autolinker.link(feature.properties['ULT_DEC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CAT_DEC</th>\
+                        <td>' + (feature.properties['CAT_DEC'] !== null ? autolinker.link(feature.properties['CAT_DEC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUB_CATEGO'] !== null ? autolinker.link(feature.properties['SUB_CATEGO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_POL'] !== null ? autolinker.link(feature.properties['NOM_POL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ENTIDAD</th>\
+                        <td>' + (feature.properties['ENTIDAD'] !== null ? autolinker.link(feature.properties['ENTIDAD'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MUN_DEC</th>\
+                        <td>' + (feature.properties['MUN_DEC'] !== null ? autolinker.link(feature.properties['MUN_DEC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUPHA_DEC'] !== null ? autolinker.link(feature.properties['SUPHA_DEC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AREA</th>\
+                        <td>' + (feature.properties['AREA'] !== null ? autolinker.link(feature.properties['AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PERIMETRO</th>\
+                        <td>' + (feature.properties['PERIMETRO'] !== null ? autolinker.link(feature.properties['PERIMETRO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FUENTE</th>\
+                        <td>' + (feature.properties['FUENTE'] !== null ? autolinker.link(feature.properties['FUENTE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">OBSERVA</th>\
+                        <td>' + (feature.properties['OBSERVA'] !== null ? autolinker.link(feature.properties['OBSERVA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ENLACE_DEC</th>\
+                        <td>' + (feature.properties['ENLACE_DEC'] !== null ? autolinker.link(feature.properties['ENLACE_DEC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOMBRE_u</th>\
+                        <td>' + (feature.properties['NOMBRE_u'] !== null ? autolinker.link(feature.properties['NOMBRE_u'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FUENTE_u</th>\
+                        <td>' + (feature.properties['FUENTE_u'] !== null ? autolinker.link(feature.properties['FUENTE_u'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cov_'] !== null ? autolinker.link(feature.properties['Cov_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cov_id'] !== null ? autolinker.link(feature.properties['Cov_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_parques_estatales_6_0() {
+            return {
+                pane: 'pane_parques_estatales_6',
+                interactive: true,
+            }
+        }
+        function style_parques_estatales_6_1() {
+            return {
+                pane: 'pane_parques_estatales_6',
+                opacity: 1,
+                color: 'rgba(179,90,42,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: .5,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_parques_estatales_6');
+        map.getPane('pane_parques_estatales_6').style.zIndex = 406;
+        map.getPane('pane_parques_estatales_6').style['mix-blend-mode'] = 'normal';
+        var layer_parques_estatales_6 = new L.geoJson.multiStyle(json_parques_estatales_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_parques_estatales_6',
+            layerName: 'layer_parques_estatales_6',
+            pane: 'pane_parques_estatales_6',
+            onEachFeature: pop_parques_estatales_6,
+            styles: [style_parques_estatales_6_0,style_parques_estatales_6_1,]
+        });
+        bounds_group.addLayer(layer_parques_estatales_6);
+        map.addLayer(layer_parques_estatales_6);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/parques_estatales_6.png" /> parques_estatales': layer_parques_estatales_6,'<img src="legend/PRESASAGUASALUDABLE_5.png" /> PRESAS AGUA SALUDABLE': layer_PRESASAGUASALUDABLE_5,'<img src="legend/RIO_NAZAS_4.png" /> RIO_NAZAS': layer_RIO_NAZAS_4,'<img src="legend/DISTRITORIEGO017_3.png" /> DISTRITO RIEGO 017': layer_DISTRITORIEGO017_3,'<img src="legend/MUNICIPIOS_REG_LAGUNA_2.png" /> MUNICIPIOS_REG_LAGUNA': layer_MUNICIPIOS_REG_LAGUNA_2,'<img src="legend/div_politica_zona_nte_1.png" /> div_politica_zona_nte': layer_div_politica_zona_nte_1,"Google Satellite": layer_GoogleSatellite_0,}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_div_politica_zona_nte_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NOM_ENT'] !== null?String('<div style="color: #ffffff; font-size: 12pt; font-family: \'Arial Black\', sans-serif;">' + layer.feature.properties['NOM_ENT']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_div_politica_zona_nte_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_MUNICIPIOS_REG_LAGUNA_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NOM_MUN'] !== null?String('<div style="color: #ffffff; font-size: 12pt; font-family: \'Arial Rounded MT Bold\', sans-serif;">' + layer.feature.properties['NOM_MUN']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_MUNICIPIOS_REG_LAGUNA_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_DISTRITORIEGO017_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['nom_dr'] !== null?String('<div style="color: #ffffff; font-size: 12pt; font-family: \'Arial Black\', sans-serif;">' + layer.feature.properties['nom_dr']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_DISTRITORIEGO017_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_RIO_NAZAS_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Nombre'] !== null?String('<div style="color: #ffffff; font-size: 12pt; font-family: \'Arial Black\', sans-serif;">' + layer.feature.properties['Nombre']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_RIO_NAZAS_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_PRESASAGUASALUDABLE_5.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((exp_label_PRESASAGUASALUDABLE_5_eval_expression(context) !== null?String('<div style="color: #050505; font-size: 12pt; font-family: \'Arial Black\', sans-serif;">' + exp_label_PRESASAGUASALUDABLE_5_eval_expression(context)) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_PRESASAGUASALUDABLE_5'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_parques_estatales_6.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['NOMBRE'] !== null?String('<div style="color: #ffffff; font-size: 12pt; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['NOMBRE']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_parques_estatales_6'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_div_politica_zona_nte_1,layer_MUNICIPIOS_REG_LAGUNA_2,layer_DISTRITORIEGO017_3,layer_RIO_NAZAS_4,layer_PRESASAGUASALUDABLE_5,layer_parques_estatales_6]);
+        map.on("zoomend", function(){
+            resetLabels([layer_div_politica_zona_nte_1,layer_MUNICIPIOS_REG_LAGUNA_2,layer_DISTRITORIEGO017_3,layer_RIO_NAZAS_4,layer_PRESASAGUASALUDABLE_5,layer_parques_estatales_6]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_div_politica_zona_nte_1,layer_MUNICIPIOS_REG_LAGUNA_2,layer_DISTRITORIEGO017_3,layer_RIO_NAZAS_4,layer_PRESASAGUASALUDABLE_5,layer_parques_estatales_6]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_div_politica_zona_nte_1,layer_MUNICIPIOS_REG_LAGUNA_2,layer_DISTRITORIEGO017_3,layer_RIO_NAZAS_4,layer_PRESASAGUASALUDABLE_5,layer_parques_estatales_6]);
+        });
+        </script>
+    </body>
+</html>
